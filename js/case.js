@@ -1,7 +1,9 @@
 document.getElementById('btn-case-plus').addEventListener('click', function(){
-    const caseNumber = updateCaseNumber(true);
+    const caseNumber = updateProductNumber(true, 'case-input-field');
+    updateProductTotalPrice(caseNumber, 'caseAmount', casePrice);
 })
 
 document.getElementById('btn-case-minus').addEventListener('click', function(){
-    updateCaseNumber(false);
+    const caseNumber = updateProductNumber(false, 'case-input-field');
+    updateProductTotalPrice(caseNumber, 'caseAmount', casePrice);
 })

@@ -1,6 +1,10 @@
+// This const is for fixing the price
+const phonePrice = 1219;
+const casePrice = 59;
+
 // To update case number
-function updateCaseNumber(isIncreaseOrDecrease) {
-    const caseInputField = document.getElementById('case-input-field');
+function updateProductNumber(isIncreaseOrDecrease, inputFieldId) {
+    const caseInputField = document.getElementById(inputFieldId);
     const caseInputFieldValue = caseInputField.value;
     const caseInputFieldValueConvert = parseInt(caseInputFieldValue);
 
@@ -10,10 +14,21 @@ function updateCaseNumber(isIncreaseOrDecrease) {
         newCaseNumber = caseInputFieldValueConvert + 1;
     }
     else {
-        newCaseNumber = caseInputFieldValueConvert - 1;
+        if (caseInputFieldValueConvert<=1)
+            return caseInputFieldValueConvert;
+        else
+            newCaseNumber = caseInputFieldValueConvert - 1;
     }
 
     caseInputField.value = newCaseNumber;
-    
+
     return newCaseNumber
+}
+
+// Function to update case price
+function updateProductTotalPrice(caseNumber, placingId, product) {
+    if (caseNumber<1)
+        return;
+    const caseAmount = document.getElementById(placingId);
+    caseAmount.innerText = (caseNumber * product);
 }
