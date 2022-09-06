@@ -2,33 +2,62 @@
 const phonePrice = 1219;
 const casePrice = 59;
 
+// Get element by ID
+function getElementValueById(elementId){
+    const element = document.getElementById(elementId);
+    const elementValue = parseInt(element.innerText);
+    return elementValue;
+}
+
 // To update case number
 function updateProductNumber(isIncreaseOrDecrease, inputFieldId) {
-    const caseInputField = document.getElementById(inputFieldId);
-    const caseInputFieldValue = caseInputField.value;
-    const caseInputFieldValueConvert = parseInt(caseInputFieldValue);
+    const productInputField = document.getElementById(inputFieldId);
+    const productInputFieldValue = productInputField.value;
+    const productInputFieldValueConvert = parseInt(productInputFieldValue);
 
-    let newCaseNumber;
+    let newProductNumber;
 
     if (isIncreaseOrDecrease === true) {
-        newCaseNumber = caseInputFieldValueConvert + 1;
+        newProductNumber = productInputFieldValueConvert + 1;
     }
     else {
-        if (caseInputFieldValueConvert<=1)
-            return caseInputFieldValueConvert;
+        if (productInputFieldValueConvert<=1)
+            return productInputFieldValueConvert;
         else
-            newCaseNumber = caseInputFieldValueConvert - 1;
+            newProductNumber = productInputFieldValueConvert - 1;
     }
 
-    caseInputField.value = newCaseNumber;
+    productInputField.value = newProductNumber;
 
-    return newCaseNumber
+    return newProductNumber
 }
 
 // Function to update case price
-function updateProductTotalPrice(caseNumber, placingId, product) {
-    if (caseNumber<1)
+function updateProductTotalPrice(productNumber, placingId, product) {
+    if (productNumber<1)
         return;
-    const caseAmount = document.getElementById(placingId);
-    caseAmount.innerText = (caseNumber * product);
+    const totalAmount = document.getElementById(placingId);
+    totalAmount.innerText = (productNumber * product);
+}
+
+// Function to set the value
+function setValueById(id, value) {
+    const element = document.getElementById(id);
+    element.innerText = value;
+}
+
+// Function to update the subtotal
+function updateSubTotal() {
+    const phoneTotal = getElementValueById('phoneAmount');
+    const caseTotal = getElementValueById('caseAmount');
+    const newSubTotal = phoneTotal + caseTotal;
+    setValueById('subTotal', newSubTotal);
+
+    // Calculate Tax
+    const newTaxAmount = (newSubTotal * .15).toFixed(2);
+    setValueById('tax', newTaxAmount);
+
+    // FInal total
+    const finalTotal = (parseFloat(newSubTotal) + parseFloat(newTaxAmount)).toFixed(2);
+    setValueById('total', finalTotal);
 }
